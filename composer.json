@@ -1,0 +1,52 @@
+{
+    "name": "tobento/service-booting",
+    "type": "library",
+    "description": "Booting manager for creating PHP applications.",
+    "keywords": [
+        "tobento",
+        "package",
+        "booting",
+        "booter"
+	],
+    "homepage": "https://www.tobento.ch",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Tobias Strub",
+            "email": "info@tobento.ch",
+            "homepage": "https://www.tobento.ch"
+        }
+    ],
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "require": {
+        "php": ">=8.0",
+        "psr/container": "^2.0",
+        "tobento/service-autowire": "^1.0"
+    },
+    "suggest": {
+        "tobento/service-container": "PSR-11 container with autowiring"
+    },    
+    "require-dev": {
+        "phpunit/phpunit": "^9.5",
+        "vimeo/psalm": "^4.0",
+        "tobento/service-container": "^1.0",
+        "symfony/dependency-injection": "^6.0",
+        "league/container": "^4.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "Tobento\\Service\\Booting\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tobento\\Service\\Booting\\Test\\": "tests",
+            "Tobento\\Demo\\Booting\\": "demo/src"
+        }
+    },
+    "scripts": {
+        "test": "phpunit --testdox --colors=always",
+        "psalm": "vendor/bin/psalm"
+    }
+}
