@@ -26,4 +26,13 @@ interface BootFactoryInterface
      * @throws InvalidBootException
      */
     public function createBoot(mixed $boot): BootInterface;
+    
+    /**
+     * Call a boot method.
+     *
+     * @param BootInterface $boot
+     * @param string $method
+     * @return void
+     */
+    public function callBootMethod(BootInterface $boot, string $method): void;    
 }
