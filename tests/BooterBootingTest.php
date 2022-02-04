@@ -198,5 +198,27 @@ class BooterBootingTest extends TestCase
             ],
             $order
         );        
+    }
+    
+    public function testBootUsesExistingRegistryIfSame()
+    {
+        $booter = $this->createBooter();
+                
+        $booter->register(FooBoot::class);
+        
+        $booter->boot();
+        $booter->terminate();
+        
+        $registry = $booter->get(FooBoot::class);
+        
+        $booter->register(FooBoot::class);
+        
+        $booter->boot();
+        $booter->terminate();
+        
+        $this->assertSame(
+            $registry,
+            $booter->get(FooBoot::class)
+        );
     }    
 }

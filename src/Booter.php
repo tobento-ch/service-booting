@@ -58,11 +58,14 @@ class Booter implements BooterInterface
         unset($boots['priority']);
 
         foreach($boots as $boot)
-        {
+        {            
             $bootObj = $this->bootFactory->createBoot($boot);
             
-            if (!empty($bootObj->boots()))
-            {
+            if (isset($this->boots[$bootObj::class])) {
+                continue;
+            }
+            
+            if (!empty($bootObj->boots())) {
                 $this->register(...$bootObj->boots());    
             }
             
@@ -72,7 +75,7 @@ class Booter implements BooterInterface
                 $priority
             );
             
-            $this->boots[$bootRegistry->name()] = $bootRegistry;
+            $this->boots[$bootRegistry->name()] = $bootRegistry;   
         }
         
         return $this;
@@ -134,6 +137,7 @@ class Booter implements BooterInterface
     /**
      * Returns a boot registry.
      *
+     * @param string $name
      * @return null|BootRegistry
      */    
     public function get(string $name): null|BootRegistry
@@ -144,6 +148,7 @@ class Booter implements BooterInterface
     /**
      * Returns the specified boot or null if none.
      *
+     * @param string $name
      * @return null|BootInterface
      */    
     public function getBoot(string $name): null|BootInterface
