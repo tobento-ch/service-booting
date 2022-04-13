@@ -16,9 +16,9 @@ namespace Tobento\Service\Booting\Test\Mock;
 use Tobento\Service\Booting\Boot;
 
 /**
- * DependentBoot
+ * DependentSimpleBoot
  */
-class DependentBoot extends Boot
+class DependentSimpleBoot extends Boot
 {
     public const BOOT = [
         SimpleBoot::class,

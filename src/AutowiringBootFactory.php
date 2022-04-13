@@ -76,7 +76,11 @@ class AutowiringBootFactory implements BootFactoryInterface
         }    
         
         try {
-            $boot = $this->autowire->resolve($boot, $parameters);
+            if ($this->autowire->container()->has($boot)) {
+                $boot = $this->autowire->container()->get($boot);
+            } else {
+                $boot = $this->autowire->resolve($boot, $parameters);   
+            }
         } catch (AutowireException $e) {
             throw new InvalidBootException($boot, $e->getMessage());
         }

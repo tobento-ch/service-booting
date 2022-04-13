@@ -19,6 +19,7 @@ use Tobento\Service\Booting\BooterInterface;
 use Tobento\Service\Booting\AutowiringBootFactory;
 use Tobento\Service\Container\Container;
 use Tobento\Service\Booting\Test\Mock\DependentBoot;
+use Tobento\Service\Booting\Test\Mock\DependentSimpleBoot;
 use Tobento\Service\Booting\Test\Mock\FooBoot;
 use Tobento\Service\Booting\Test\Mock\RebootableBoot;
 use Tobento\Service\Booting\Test\Mock\SimpleBoot;
@@ -219,6 +220,28 @@ class BooterBootingTest extends TestCase
         $this->assertSame(
             $registry,
             $booter->get(FooBoot::class)
+        );
+    }
+    
+    public function testDependentBootIsUsedIsPassedSameObject()
+    {
+        $booter = $this->createBooter();
+                
+        $booter->register(DependentBoot::class);
+        
+        $booter->boot();
+        $booter->terminate();
+        
+        $simpleBoot = $booter->getBoot(DependentBoot::class)->getSimpleBoot();
+        
+        $booter->register(DependentSimpleBoot::class);
+        
+        $booter->boot();
+        $booter->terminate();
+        
+        $this->assertSame(
+            $simpleBoot,
+            $booter->getBoot(DependentSimpleBoot::class)->getSimpleBoot()
         );
     }    
 }
