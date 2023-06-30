@@ -215,8 +215,8 @@ class Booter implements BooterInterface
                 $this,
                 $bootRegistry,
                 $method,
-                'Boot ['.$bootRegistry->name().'->'.$method.'()] Failed!',
-                0,
+                $t->getMessage(),
+                (int)$t->getCode(),
                 $t
             );
         }       
