@@ -62,11 +62,14 @@ class Booter implements BooterInterface
             $bootObj = $this->bootFactory->createBoot($boot);
             
             if (isset($this->boots[$bootObj::class])) {
+                $this->boots[$bootObj::class]->setPriority($priority ?: $bootObj->priority());
                 continue;
             }
             
             if (!empty($bootObj->boots())) {
-                $this->register(...$bootObj->boots());    
+                $dependentBoots = $bootObj->boots();
+                $dependentBoots['priority'] = $priority ?: $bootObj->priority();
+                $this->register(...$dependentBoots);
             }
             
             $bootRegistry = new BootRegistry(
