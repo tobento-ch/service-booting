@@ -36,6 +36,21 @@ class BootRegistry
     ) {
         $this->name = $name ?: $boot::class;
     }
+    
+    /**
+     * Sets the priority.
+     *
+     * @param null|int $priority
+     * @return static $this
+     */
+    public function setPriority(null|int $priority): static
+    {
+        if (is_int($priority) && $priority > $this->priority()) {
+            $this->priority = $priority;
+        }
+        
+        return $this;
+    }
 
     /**
      * Get the name of the booter.
