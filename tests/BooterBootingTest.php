@@ -201,6 +201,31 @@ class BooterBootingTest extends TestCase
         );        
     }
     
+    public function testDependentBootGetsCalledFirstEvenWithLowerPriority()
+    {
+        $booter = $this->createBooter();
+        
+        $booter->register(DependentSimpleBoot::class, priority: 2000);
+        $booter->register(SimpleBoot::class, priority: 1000);
+        
+        $booter->boot();
+        $booter->terminate();
+        
+        $order = array_map(function($booted) {
+            return $booted['boot'].'@'.$booted['method'];
+        }, $booter->getBooted());
+
+        
+        $this->assertSame(
+            [
+                'Tobento\Service\Booting\Test\Mock\SimpleBoot@boot',
+                'Tobento\Service\Booting\Test\Mock\DependentSimpleBoot@boot',
+                'Tobento\Service\Booting\Test\Mock\DependentSimpleBoot@terminate',
+            ],
+            $order
+        );        
+    }
+    
     public function testBootUsesExistingRegistryIfSame()
     {
         $booter = $this->createBooter();
