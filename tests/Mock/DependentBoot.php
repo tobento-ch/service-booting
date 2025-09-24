@@ -29,10 +29,9 @@ class DependentBoot extends Boot
         'terminate' => 'DependentBoot terminate description',
     ];
     
-    /**
-     * @var null|SimpleBoot
-     */    
-    protected array $boots = [];    
+    protected array $boots = [];
+    
+    protected null|SimpleBoot $simpleBoot = null;
     
     public function boot(SimpleBoot $simpleBoot): void
     {

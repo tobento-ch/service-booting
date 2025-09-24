@@ -15,9 +15,6 @@ namespace Tobento\Service\Booting\Test\Mock;
 
 use Tobento\Service\Booting\Boot;
 
-/**
- * DependentSimpleBoot
- */
 class DependentSimpleBoot extends Boot
 {
     public const BOOT = [
@@ -29,10 +26,9 @@ class DependentSimpleBoot extends Boot
         'terminate' => 'DependentBoot terminate description',
     ];
     
-    /**
-     * @var null|SimpleBoot
-     */    
-    protected array $boots = [];    
+    protected array $boots = [];
+    
+    protected null|SimpleBoot $simpleBoot = null;
     
     public function boot(SimpleBoot $simpleBoot): void
     {
